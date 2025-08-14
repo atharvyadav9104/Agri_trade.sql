@@ -1,0 +1,574 @@
+SQL> desc farmer;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FARMER_ID                                 NOT NULL NUMBER
+ FARMER_NAME                                        VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(100)
+ PHONE                                              VARCHAR2(20)
+ EMAIL                                              VARCHAR2(100)
+
+SQL> insert into farmer values(1,'Jalindar Solaskar','9874563217','js12@gmail.com');
+insert into farmer values(1,'Jalindar Solaskar','9874563217','js12@gmail.com')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into farmer values(1,'Jalindar Solaskar','9874563217','js12@gmail.com')
+SQL> /
+insert into farmer values(1,'Jalindar Solaskar','9874563217','js12@gmail.com')
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into farmer values(1,'Jalindar Solaskar','solashi',9874563217,'js12@gmail.com')
+SQL> /
+
+1 row created.
+
+SQL> insert into farmer values(2,'jitu shinde','naigoan','5774563217','js12@gmail.com');
+
+1 row created.
+
+SQL> insert into farmer values(3,'sunita yadav','satara','8568745896','sy10@gmail.com');
+
+1 row created.
+
+SQL> insert into farmer values(4,'pratik yadav','pune','9574569786','py123@gmail.com');
+
+1 row created.
+
+SQL> insert into farmer values(5,'pritam dhumal','wai','6878965426','pd03@gmail.com');
+
+1 row created.
+
+SQL> desc crop;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CROP_ID                                   NOT NULL NUMBER
+ CROP_NAME                                 NOT NULL VARCHAR2(50)
+ CROP_TYPE                                          VARCHAR2(100)
+ SEASON                                             VARCHAR2(50)
+ PRICE_PER_KG                                       VARCHAR2(50)
+
+SQL> insert into crop values(1,'Capsicum','vegetable','all-season',100);
+
+1 row created.
+
+SQL> insert into crop values(2,'Tomato','vegetable','all-season',20);
+
+1 row created.
+
+SQL> insert into crop values(3,'wheat','grain','winter',120);
+
+1 row created.
+
+SQL> insert into crop values(4,'potato','vegetable','winter',25);
+
+1 row created.
+
+SQL> insert into crop values(5,'mango','fruits'summer',120);
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> insert into crop values(5,'mango','fruits','summer',120);
+
+1 row created.
+
+SQL> desc farmer_crop;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FARMER_ID                                 NOT NULL NUMBER
+ CROP_ID                                   NOT NULL NUMBER
+ AREA_ACRES                                         NUMBER
+
+SQL> insert into crop values(1,1,5);
+insert into crop values(1,1,5)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> insert into farmer_crop values(1,1,5);
+
+1 row created.
+
+SQL> insert into farmer_crop values(2,1,4);
+
+1 row created.
+
+SQL> insert into farmer_crop values(3,3,2);
+
+1 row created.
+
+SQL> insert into farmer_crop values(4,4,6);
+
+1 row created.
+
+SQL> insert into farmer_crop values(5,5,9);
+
+1 row created.
+
+SQL> desc buyer;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BUYER_ID                                  NOT NULL NUMBER
+ BUYER_NAME                                         VARCHAR2(100)
+ COUNTRY                                            VARCHAR2(50)
+ CONTACT_NUMBER                                     VARCHAR2(15)
+
+SQL> insert into buyer values(1,'ramesh traders','Dubai','7895789658');
+
+1 row created.
+
+SQL> insert into buyer values(2,'freshMart pvt ltd','germany','5788479538');
+
+1 row created.
+
+SQL> insert into buyer values(3,'Agroworld exports','nagpur','7894561238');
+
+1 row created.
+
+SQL> insert into buyer values(4,'Green basket','solapur','9012344565');
+
+1 row created.
+
+SQL> insert into buyer values(5,'veggie traders','Kolhapur','7564120325');
+
+1 row created.
+
+SQL> desc order_master;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_ID                                  NOT NULL NUMBER
+ BUYER_ID                                           NUMBER
+ ORDER_DATE                                         DATE
+ TOTAL_AMOUNT                                       NUMBER(10,2)
+
+SQL> insert into order_master values(1,1,to_date('2025-08-01','yyyy-mm-dd'),150000.00);
+
+1 row created.
+
+SQL> insert into order_master values(2,3,to_date('2025-08-03','yyyy-mm-dd'),200000.00);
+
+1 row created.
+
+SQL> insert into order_master values(3,2,to_date('2025-08-01','yyyy-mm-dd'),150000.00);
+
+1 row created.
+
+SQL> insert into order_master values(4,5,to_date('2025-08-08','yyyy-mm-dd'),12000.00);
+
+1 row created.
+
+SQL> insert into order_master values(5,4,to_date('2025-07-11','yyyy-mm-dd'),33000.00);
+
+1 row created.
+
+SQL> desc order_details;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORDER_ID                                  NOT NULL NUMBER
+ CROP_ID                                   NOT NULL NUMBER
+ QUANTITY_KG                                        NUMBER
+ PRICE_PER_KG                                       NUMBER(10,2)
+
+SQL> insert into order_details values(4,4,500,300);
+
+1 row created.
+
+SQL> insert into order_details values(4,2,100,20);
+
+1 row created.
+
+SQL> insert into order_details values(5,1,250,50.00);
+
+1 row created.
+
+SQL> insert into order_details values(1,2,500,70.00);
+
+1 row created.
+
+SQL> 
+SQL> insert into order_details values(3,2,600,300.00);
+
+1 row created.
+
+SQL> desc shipment;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SHIPMENT_ID                               NOT NULL NUMBER
+ ORDER_ID                                           NUMBER
+ SHIP_DATE                                          DATE
+ DESTINATION_PORT                                   VARCHAR2(100)
+ STATUS                                             VARCHAR2(50)
+
+SQL> insert into shipment values(1001,101,date'2025-08-11
+  2  
+SQL> insert into shipment values(1001,101,date'2025-08-11','Nhava sheva port' -mumbai','dispatched');
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> insert into shipment values(1001,101,date'2025-08-11','Nhava sheva port mumbai','dispatched');
+insert into shipment values(1001,101,date'2025-08-11','Nhava sheva port mumbai','dispatched')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (HR.SYS_C007777) violated - parent key not 
+found 
+
+
+SQL> insert into shipment values(1001,1,date'2025-08-11','Nhava sheva port mumbai','dispatched')
+  2  /
+
+1 row created.
+
+SQL> insert into shipment values(1002,2,date'2025-07-12','Kandla port Gujrat','In Transit');
+
+1 row created.
+
+SQL> insert into shipment values(1003,3,date'2025-08-14','Chennai port tamil nadu','Pending.');
+
+1 row created.
+
+SQL> 
+SQL> insert into shipment values(1004,4,date'2025-09-15','mundra port Gujarat','dispatched');
+
+1 row created.
+
+SQL> insert into shipment values(1005,5,date'2025-08-14','chennai Port tamil Nadu','Delivered');
+
+1 row created.
+
+SQL> select * from farmer;
+
+ FARMER_ID FARMER_NAME                                                          
+---------- --------------------                                                 
+ADDRESS                                                                         
+--------------------------------------------------------------------------------
+PHONE                                                                           
+--------------------                                                            
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+         1 Jalindar Solaskar                                                    
+solashi                                                                         
+9874563217                                                                      
+js12@gmail.com                                                                  
+                                                                                
+
+ FARMER_ID FARMER_NAME                                                          
+---------- --------------------                                                 
+ADDRESS                                                                         
+--------------------------------------------------------------------------------
+PHONE                                                                           
+--------------------                                                            
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+         2 jitu shinde                                                          
+naigoan                                                                         
+5774563217                                                                      
+js12@gmail.com                                                                  
+                                                                                
+
+ FARMER_ID FARMER_NAME                                                          
+---------- --------------------                                                 
+ADDRESS                                                                         
+--------------------------------------------------------------------------------
+PHONE                                                                           
+--------------------                                                            
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+         3 sunita yadav                                                         
+satara                                                                          
+8568745896                                                                      
+sy10@gmail.com                                                                  
+                                                                                
+
+ FARMER_ID FARMER_NAME                                                          
+---------- --------------------                                                 
+ADDRESS                                                                         
+--------------------------------------------------------------------------------
+PHONE                                                                           
+--------------------                                                            
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+         4 pratik yadav                                                         
+pune                                                                            
+9574569786                                                                      
+py123@gmail.com                                                                 
+                                                                                
+
+ FARMER_ID FARMER_NAME                                                          
+---------- --------------------                                                 
+ADDRESS                                                                         
+--------------------------------------------------------------------------------
+PHONE                                                                           
+--------------------                                                            
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+         5 pritam dhumal                                                        
+wai                                                                             
+6878965426                                                                      
+pd03@gmail.com                                                                  
+                                                                                
+
+SQL> set pagesize200;
+SQL> set linesize 200;
+SQL> /
+
+ FARMER_ID FARMER_NAME          ADDRESS                                                                                              PHONE                                                              
+---------- -------------------- ---------------------------------------------------------------------------------------------------- --------------------                                               
+EMAIL                                                                                                                                                                                                   
+----------------------------------------------------------------------------------------------------                                                                                                    
+         1 Jalindar Solaskar    solashi                                                                                              9874563217                                                         
+js12@gmail.com                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         2 jitu shinde          naigoan                                                                                              5774563217                                                         
+js12@gmail.com                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         3 sunita yadav         satara                                                                                               8568745896                                                         
+sy10@gmail.com                                                                                                                                                                                          
+                                                                                                                                                                                                        
+         4 pratik yadav         pune                                                                                                 9574569786                                                         
+py123@gmail.com                                                                                                                                                                                         
+                                                                                                                                                                                                        
+         5 pritam dhumal        wai                                                                                                  6878965426                                                         
+pd03@gmail.com                                                                                                                                                                                          
+                                                                                                                                                                                                        
+
+SQL> col format a12
+SP2-0158: unknown COLUMN option "a12"
+SQL> col format a12;
+SP2-0158: unknown COLUMN option "a12"
+SQL> col formatA12;
+SP2-0046: COLUMN 'formatA12' not defined
+SQL> column farmer_id format a12;
+SQL> column farmer_name format a12;
+SQL> column address format a12;
+SQL> /
+
+ FARMER_ID FARMER_NAME  ADDRESS      PHONE                EMAIL                                                                                                                                         
+---------- ------------ ------------ -------------------- ----------------------------------------------------------------------------------------------------                                          
+########## Jalindar Sol solashi      9874563217           js12@gmail.com                                                                                                                                
+           askar                                                                                                                                                                                        
+                                                                                                                                                                                                        
+########## jitu shinde  naigoan      5774563217           js12@gmail.com                                                                                                                                
+########## sunita yadav satara       8568745896           sy10@gmail.com                                                                                                                                
+########## pratik yadav pune         9574569786           py123@gmail.com                                                                                                                               
+########## pritam dhuma wai          6878965426           pd03@gmail.com                                                                                                                                
+           l                                                                                                                                                                                            
+                                                                                                                                                                                                        
+
+SQL> COLUMN farmer_id   FORMAT 9999999999;
+SQL> COLUMN farmer_name FORMAT A20;
+SQL> COLUMN address     FORMAT A15;
+SQL> COLUMN phone       FORMAT A15;
+SQL> COLUMN email       FORMAT A40;
+SQL> /
+
+  FARMER_ID FARMER_NAME          ADDRESS         PHONE           EMAIL                                                                                                                                  
+----------- -------------------- --------------- --------------- ----------------------------------------                                                                                               
+          1 Jalindar Solaskar    solashi         9874563217      js12@gmail.com                                                                                                                         
+          2 jitu shinde          naigoan         5774563217      js12@gmail.com                                                                                                                         
+          3 sunita yadav         satara          8568745896      sy10@gmail.com                                                                                                                         
+          4 pratik yadav         pune            9574569786      py123@gmail.com                                                                                                                        
+          5 pritam dhumal        wai             6878965426      pd03@gmail.com                                                                                                                         
+
+SQL> select * from crop;
+
+   CROP_ID CROP_NAME                                          CROP_TYPE                                                                                                                                 
+---------- -------------------------------------------------- ----------------------------------------------------------------------------------------------------                                      
+SEASON                                             PRICE_PER_KG                                                                                                                                         
+-------------------------------------------------- --------------------------------------------------                                                                                                   
+         1 Capsicum                                           vegetable                                                                                                                                 
+all-season                                         100                                                                                                                                                  
+                                                                                                                                                                                                        
+         2 Tomato                                             vegetable                                                                                                                                 
+all-season                                         20                                                                                                                                                   
+                                                                                                                                                                                                        
+         3 wheat                                              grain                                                                                                                                     
+winter                                             120                                                                                                                                                  
+                                                                                                                                                                                                        
+         4 potato                                             vegetable                                                                                                                                 
+winter                                             25                                                                                                                                                   
+                                                                                                                                                                                                        
+         5 mango                                              fruits                                                                                                                                    
+summer                                             120                                                                                                                                                  
+                                                                                                                                                                                                        
+
+SQL> 
+SQL> 
+SQL> col crop_id format 9999999999
+SQL> col crop_name format A20
+SQL> col crop_type format A15
+SQL> col season format A15
+SQL> col price_per_kg format A40
+SQL> /
+
+    CROP_ID CROP_NAME            CROP_TYPE       SEASON          PRICE_PER_KG                                                                                                                           
+----------- -------------------- --------------- --------------- ----------------------------------------                                                                                               
+          1 Capsicum             vegetable       all-season      100                                                                                                                                    
+          2 Tomato               vegetable       all-season      20                                                                                                                                     
+          3 wheat                grain           winter          120                                                                                                                                    
+          4 potato               vegetable       winter          25                                                                                                                                     
+          5 mango                fruits          summer          120                                                                                                                                    
+
+SQL> select * from farmer_crop;
+
+  FARMER_ID     CROP_ID AREA_ACRES                                                                                                                                                                      
+----------- ----------- ----------                                                                                                                                                                      
+          1           1          5                                                                                                                                                                      
+          2           1          4                                                                                                                                                                      
+          3           3          2                                                                                                                                                                      
+          4           4          6                                                                                                                                                                      
+          5           5          9                                                                                                                                                                      
+
+SQL> select * from buyer;
+
+  BUYER_ID BUYER_NAME                                                                                           COUNTRY                                            CONTACT_NUMBER                       
+---------- ---------------------------------------------------------------------------------------------------- -------------------------------------------------- ---------------                      
+         1 ramesh traders                                                                                       Dubai                                              7895789658                           
+         2 freshMart pvt ltd                                                                                    germany                                            5788479538                           
+         3 Agroworld exports                                                                                    nagpur                                             7894561238                           
+         4 Green basket                                                                                         solapur                                            9012344565                           
+         5 veggie traders                                                                                       Kolhapur                                           7564120325                           
+
+SQL> COLUMN buyer_id       FORMAT 9999;
+SQL> COLUMN buyer_name     FORMAT A30;
+SQL> COLUMN country        FORMAT A20;
+SQL> COLUMN contact_number FORMAT A15;
+SQL> 
+SQL> SELECT * FROM buyer;
+
+BUYER_ID BUYER_NAME                     COUNTRY              CONTACT_NUMBER                                                                                                                             
+-------- ------------------------------ -------------------- ---------------                                                                                                                            
+       1 ramesh traders                 Dubai                7895789658                                                                                                                                 
+       2 freshMart pvt ltd              germany              5788479538                                                                                                                                 
+       3 Agroworld exports              nagpur               7894561238                                                                                                                                 
+       4 Green basket                   solapur              9012344565                                                                                                                                 
+       5 veggie traders                 Kolhapur             7564120325                                                                                                                                 
+
+SQL> select * from order_master;
+
+  ORDER_ID BUYER_ID ORDER_DAT TOTAL_AMOUNT                                                                                                                                                              
+---------- -------- --------- ------------                                                                                                                                                              
+         1        1 01-AUG-25       150000                                                                                                                                                              
+         2        3 03-AUG-25       200000                                                                                                                                                              
+         3        2 01-AUG-25       150000                                                                                                                                                              
+         4        5 08-AUG-25        12000                                                                                                                                                              
+         5        4 11-JUL-25        33000                                                                                                                                                              
+
+SQL> select * from order_details;
+
+  ORDER_ID     CROP_ID QUANTITY_KG PRICE_PER_KG                                                                                                                                                         
+---------- ----------- ----------- ------------                                                                                                                                                         
+         4           4         500   ##########                                                                                                                                                         
+         4           2         100   ##########                                                                                                                                                         
+         5           1         250   ##########                                                                                                                                                         
+         1           2         500   ##########                                                                                                                                                         
+         3           2         600   ##########                                                                                                                                                         
+
+SQL> col price_per_kg 9999999999;
+SP2-0158: unknown COLUMN option "9999999999"
+SQL> COLUMN price_per_kg FORMAT 9999990.00;
+SQL> /
+
+  ORDER_ID     CROP_ID QUANTITY_KG PRICE_PER_KG                                                                                                                                                         
+---------- ----------- ----------- ------------                                                                                                                                                         
+         4           4         500       300.00                                                                                                                                                         
+         4           2         100        20.00                                                                                                                                                         
+         5           1         250        50.00                                                                                                                                                         
+         1           2         500        70.00                                                                                                                                                         
+         3           2         600       300.00                                                                                                                                                         
+
+SQL> select * from shipment;
+
+SHIPMENT_ID   ORDER_ID SHIP_DATE DESTINATION_PORT                                                                                     STATUS                                                            
+----------- ---------- --------- ---------------------------------------------------------------------------------------------------- --------------------------------------------------                
+       1001          1 11-AUG-25 Nhava sheva port mumbai                                                                              dispatched                                                        
+       1002          2 12-JUL-25 Kandla port Gujrat                                                                                   In Transit                                                        
+       1003          3 14-AUG-25 Chennai port tamil nadu                                                                              Pending.                                                          
+       1004          4 15-SEP-25 mundra port Gujarat                                                                                  dispatched                                                        
+       1005          5 14-AUG-25 chennai Port tamil Nadu                                                                              Delivered                                                         
+
+SQL> COLUMN shipment_id      FORMAT 999999;
+SQL> COLUMN order_id         FORMAT 9999;
+SQL> COLUMN ship_date        FORMAT A12;
+SQL> COLUMN destination_port FORMAT A40;
+SQL> COLUMN status           FORMAT A20;
+SQL> 
+SQL> SELECT * FROM shipment;
+
+SHIPMENT_ID ORDER_ID SHIP_DATE    DESTINATION_PORT                         STATUS                                                                                                                       
+----------- -------- ------------ ---------------------------------------- --------------------                                                                                                         
+       1001        1 11-AUG-25    Nhava sheva port mumbai                  dispatched                                                                                                                   
+       1002        2 12-JUL-25    Kandla port Gujrat                       In Transit                                                                                                                   
+       1003        3 14-AUG-25    Chennai port tamil nadu                  Pending.                                                                                                                     
+       1004        4 15-SEP-25    mundra port Gujarat                      dispatched                                                                                                                   
+       1005        5 14-AUG-25    chennai Port tamil Nadu                  Delivered                                                                                                                    
+
+SQL> COLUMN order_id         FORMAT A15;
+SQL> /
+
+SHIPMENT_ID   ORDER_ID SHIP_DATE    DESTINATION_PORT                         STATUS                                                                                                                     
+----------- ---------- ------------ ---------------------------------------- --------------------                                                                                                       
+       1001 ########## 11-AUG-25    Nhava sheva port mumbai                  dispatched                                                                                                                 
+       1002 ########## 12-JUL-25    Kandla port Gujrat                       In Transit                                                                                                                 
+       1003 ########## 14-AUG-25    Chennai port tamil nadu                  Pending.                                                                                                                   
+       1004 ########## 15-SEP-25    mundra port Gujarat                      dispatched                                                                                                                 
+       1005 ########## 14-AUG-25    chennai Port tamil Nadu                  Delivered                                                                                                                  
+
+SQL> COLUMN order_id FORMAT 999999
+SQL> /
+
+SHIPMENT_ID ORDER_ID SHIP_DATE    DESTINATION_PORT                         STATUS                                                                                                                       
+----------- -------- ------------ ---------------------------------------- --------------------                                                                                                         
+       1001        1 11-AUG-25    Nhava sheva port mumbai                  dispatched                                                                                                                   
+       1002        2 12-JUL-25    Kandla port Gujrat                       In Transit                                                                                                                   
+       1003        3 14-AUG-25    Chennai port tamil nadu                  Pending.                                                                                                                     
+       1004        4 15-SEP-25    mundra port Gujarat                      dispatched                                                                                                                   
+       1005        5 14-AUG-25    chennai Port tamil Nadu                  Delivered                                                                                                                    
+
+SQL> SELECT f.farmer_id,
+  2         f.farmer_name,
+  3         c.crop_name,
+  4         fc.area_acres,
+  5         c.price_per_kg
+  6  FROM   farmer f
+  7  JOIN   farmer_crop fc ON f.farmer_id = fc.farmer_id
+  8  JOIN   crop c         ON fc.crop_id = c.crop_id
+  9  ORDER BY f.farmer_id;
+
+  FARMER_ID FARMER_NAME          CROP_NAME            AREA_ACRES PRICE_PER_KG                                                                                                                           
+----------- -------------------- -------------------- ---------- --------------------------------------------------                                                                                     
+          1 Jalindar Solaskar    Capsicum                      5 100                                                                                                                                    
+          2 jitu shinde          Capsicum                      4 100                                                                                                                                    
+          3 sunita yadav         wheat                         2 120                                                                                                                                    
+          4 pratik yadav         potato                        6 25                                                                                                                                     
+          5 pritam dhumal        mango                         9 120                                                                                                                                    
+
+SQL> SELECT om.order_id,
+  2         b.buyer_name,
+  3         om.order_date,
+  4         om.total_amount
+  5  FROM   order_master om
+  6  JOIN   buyer b ON om.buyer_id = b.buyer_id
+  7  ORDER BY om.order_id;
+
+ORDER_ID BUYER_NAME                     ORDER_DAT TOTAL_AMOUNT                                                                                                                                          
+-------- ------------------------------ --------- ------------                                                                                                                                          
+       1 ramesh traders                 01-AUG-25       150000                                                                                                                                          
+       2 Agroworld exports              03-AUG-25       200000                                                                                                                                          
+       3 freshMart pvt ltd              01-AUG-25       150000                                                                                                                                          
+       4 veggie traders                 08-AUG-25        12000                                                                                                                                          
+       5 Green basket                   11-JUL-25        33000                                                                                                                                          
+
+SQL> spool off

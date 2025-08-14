@@ -1,0 +1,94 @@
+SQL> create table farmer(
+  2  farmer_id number primary key,
+  3  farmer_name varchar(20),
+  4  address varchar(100),
+  5  phone varchar(20),
+  6  email varchar(100)
+  7  );
+
+Table created.
+
+SQL> create table crop(
+  2  crop_id number primary key,
+  3  crop_name varchar(50) not null,
+  4  crop_type varchar(100),
+  5  season varchar(50),
+  6  price_per_kg varchar(50)
+  7  );
+
+Table created.
+
+SQL> create table farmer_crop(
+  2  farmer_id number,
+  3  crop_id number,
+  4  area_acres number,
+  5  primary key( farmer_id, crop_id),
+  6  foreign key(farmer_id) references farmer(farmer_id),
+  7  foreign key(crop_id) references crop(crop_id),
+  8  );
+)
+*
+ERROR at line 8:
+ORA-00904: : invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table farmer_crop(
+  2  farmer_id number,
+  3  crop_id number,
+  4  area_acres number,
+  5  primary key( farmer_id, crop_id),
+  6  foreign key(farmer_id) references farmer(farmer_id),
+  7  foreign key(crop_id) references crop(crop_id)
+  8* )
+SQL> /
+
+Table created.
+
+SQL> create table buyer(
+  2  
+SQL> create table Buyer(
+  2  buyer_id number primary key,
+  3  buyer_name varchar2(100),
+  4  country varchar2(50),
+  5  contact_number varchar2(15)
+  6  );
+
+Table created.
+
+SQL> create table order_master(
+  2  order_id number primary key,
+  3  buyer_id number,
+  4  order_date date,
+  5  total_amount number(10,2),
+  6  foreign key(buyer_id) references buyer(buyer_id)
+  7  );
+
+Table created.
+
+SQL> create table order_details(
+  2  order_id number,
+  3  crop_id number,
+  4  quantity_kg number,
+  5  price_per_kg number(10,2),
+  6  primary key(order_id,crop_id),
+  7  foreign key(order_id) references order_master(order_id),
+  8  foreign key(crop_id) references crop(crop_id)
+  9  );
+
+Table created.
+
+SQL> create table shipment(
+  2  shipment_id number primary key,
+  3  order_id number,
+  4  ship_date date,
+  5  destination_port varchar2(100),
+  6  status varchar2(50),
+  7  foreign key(order_id) references order_master(order_id)
+  8  );
+
+Table created.
+
+SQL> spool off
